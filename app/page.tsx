@@ -1,65 +1,93 @@
-import Image from "next/image";
+import { client, hasConfig } from "@/sanity/client";
+import {
+  profileQuery,
+  researchAreasQuery,
+  publicationsQuery,
+  projectsQuery,
+  talksQuery,
+  teamQuery,
+  collaboratorsQuery,
+} from "@/lib/queries";
 
-export default function Home() {
+import Navbar from "@/components/Navbar";
+import Hero from "@/components/Hero";
+import About from "@/components/About";
+import ResearchAreas from "@/components/ResearchAreas";
+import Publications from "@/components/Publications";
+import ProjectsPreview from "@/components/ProjectsPreview";
+import Talks from "@/components/Talks";
+import Collaborators from "@/components/Collaborators";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
+
+export const revalidate = 0;
+
+async function getData() {
+  if (!hasConfig) {
+    return {
+      profile: null,
+      researchAreas: [],
+      publications: [],
+      projects: [],
+      talks: [],
+      team: [],
+      collaborators: [],
+    };
+  }
+
+  const [profile, researchAreas, publications, projects, talks, team, collaborators] =
+    await Promise.all([
+      client.fetch(profileQuery).catch(() => null),
+      client.fetch(researchAreasQuery).catch(() => []),
+      client.fetch(publicationsQuery).catch(() => []),
+      client.fetch(projectsQuery).catch(() => []),
+      client.fetch(talksQuery).catch(() => []),
+      client.fetch(teamQuery).catch(() => []),
+      client.fetch(collaboratorsQuery).catch(() => []),
+    ]);
+
+  return { profile, researchAreas, publications, projects, talks, team, collaborators };
+}
+
+export default async function Home() {
+  const { profile, researchAreas, publications, projects, talks, team, collaborators } =
+    await getData();
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main>
+      <Navbar />
+      <Hero
+        name={profile?.name || "Soniya Gupta-Rawal"}
+        title={profile?.title || "PhD Candidate, Management Studies (Marketing)"}
+        institution={profile?.institution || "Cambridge Judge Business School, University of Cambridge"}
+        tagline={
+          profile?.tagline ||
+          "Finding potential in percentages. Identifying narratives behind numbers for business strategy and marketing insights."
+        }
+      />
+      <About
+        bio={profile?.bio}
+        photo={profile?.photo}
+        cvFile={profile?.cvFile}
+        email={profile?.email || "sg2001@jbs.cam.ac.uk"}
+        googleScholar={profile?.googleScholar || ""}
+        linkedin={profile?.linkedin || ""}
+        twitter={profile?.twitter || ""}
+        orcid={profile?.orcid || ""}
+      />
+      <ResearchAreas areas={researchAreas} />
+      <Publications publications={publications} />
+      <ProjectsPreview projects={projects} />
+      <Talks talks={talks} />
+      <Collaborators collaborators={collaborators} />
+      <Contact
+        email={profile?.email || "sg2001@jbs.cam.ac.uk"}
+        institution={profile?.institution || "Cambridge Judge Business School, University of Cambridge"}
+        googleScholar={profile?.googleScholar || ""}
+        linkedin={profile?.linkedin || ""}
+        twitter={profile?.twitter || ""}
+      />
+      <Footer />
+    </main>
   );
 }
