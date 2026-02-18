@@ -7,6 +7,7 @@ import {
   talksQuery,
   teamQuery,
   collaboratorsQuery,
+  raApplicationQuery,
 } from "@/lib/queries";
 
 import Navbar from "@/components/Navbar";
@@ -17,6 +18,7 @@ import Publications from "@/components/Publications";
 import ProjectsPreview from "@/components/ProjectsPreview";
 import Talks from "@/components/Talks";
 import Collaborators from "@/components/Collaborators";
+import RAApplication from "@/components/RAApplication";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 
@@ -32,10 +34,11 @@ async function getData() {
       talks: [],
       team: [],
       collaborators: [],
+      raApplication: null,
     };
   }
 
-  const [profile, researchAreas, publications, projects, talks, team, collaborators] =
+  const [profile, researchAreas, publications, projects, talks, team, collaborators, raApplication] =
     await Promise.all([
       client.fetch(profileQuery).catch(() => null),
       client.fetch(researchAreasQuery).catch(() => []),
@@ -44,13 +47,14 @@ async function getData() {
       client.fetch(talksQuery).catch(() => []),
       client.fetch(teamQuery).catch(() => []),
       client.fetch(collaboratorsQuery).catch(() => []),
+      client.fetch(raApplicationQuery).catch(() => null),
     ]);
 
-  return { profile, researchAreas, publications, projects, talks, team, collaborators };
+  return { profile, researchAreas, publications, projects, talks, team, collaborators, raApplication };
 }
 
 export default async function Home() {
-  const { profile, researchAreas, publications, projects, talks, team, collaborators } =
+  const { profile, researchAreas, publications, projects, talks, team, collaborators, raApplication } =
     await getData();
 
   return (
@@ -80,6 +84,7 @@ export default async function Home() {
       <ProjectsPreview projects={projects} />
       <Talks talks={talks} />
       <Collaborators collaborators={collaborators} />
+      <RAApplication data={raApplication} />
       <Contact
         email={profile?.email || "sg2001@jbs.cam.ac.uk"}
         institution={profile?.institution || "Cambridge Judge Business School, University of Cambridge"}

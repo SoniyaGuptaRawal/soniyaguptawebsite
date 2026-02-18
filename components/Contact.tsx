@@ -57,6 +57,7 @@ export default function Contact({
             )}
             {linkedin && <SocialLink href={linkedin} label="LinkedIn" />}
             {twitter && <SocialLink href={twitter} label="Twitter/X" />}
+            <SocialLink href="https://topmate.io/soniya_guptarawal" label="Topmate" />
           </div>
         </ScrollReveal>
 

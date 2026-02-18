@@ -39,7 +39,22 @@ export const publicationsQuery = groq`*[_type == "publication"] | order(year des
 export const projectsQuery = groq`*[_type == "project"] | order(startDate desc){
   _id,
   title,
+  slug,
   description,
+  image,
+  status,
+  collaborators,
+  startDate,
+  endDate,
+  url
+}`;
+
+export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $slug][0]{
+  _id,
+  title,
+  slug,
+  description,
+  body,
   image,
   status,
   collaborators,
@@ -78,4 +93,33 @@ export const collaboratorsQuery = groq`*[_type == "collaborator"]{
   institution,
   url,
   logo
+}`;
+
+export const raApplicationQuery = groq`*[_type == "raApplication" && isActive == true][0]{
+  _id,
+  heading,
+  introduction,
+  position,
+  languages,
+  location,
+  duration,
+  commitment,
+  startDate,
+  projectDetailsUrl,
+  applicationFormUrl,
+  submissionTimeline,
+  reviewTimeline,
+  isActive
+}`;
+
+export const teachingQuery = groq`*[_type == "teaching"] | order(order asc){
+  _id,
+  title,
+  role,
+  course,
+  professor,
+  institution,
+  period,
+  description,
+  order
 }`;

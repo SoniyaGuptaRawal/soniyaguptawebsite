@@ -154,7 +154,7 @@ export default function Talks({ talks }: TalksProps) {
     <section id="talks" className="py-24 md:py-32">
       <div className="max-w-7xl mx-auto px-6">
         <SectionHeading
-          title="Talks & Presentations"
+          title="Research Presentations & Seminars"
           subtitle="Conference presentations, invited talks, and seminars."
         />
 

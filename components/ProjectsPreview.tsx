@@ -7,6 +7,7 @@ import SectionHeading from "./SectionHeading";
 interface Project {
   _id: string;
   title: string;
+  slug?: { current: string };
   description: string;
   image: any;
   status: string;
@@ -99,7 +100,7 @@ export default function ProjectsPreview({ projects }: ProjectsPreviewProps) {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {previewProjects.map((project, i) => (
             <ScrollReveal key={project._id} delay={i * 0.1}>
-              <div className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 h-full flex flex-col">
+              <a href={project.slug?.current ? `/research/${project.slug.current}` : "#"} className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 h-full flex flex-col block">
                 <div className="aspect-[16/9] bg-gradient-to-br from-indigo-deep/5 to-amber/5 relative overflow-hidden">
                   {project.image ? (
                     <img
@@ -140,7 +141,7 @@ export default function ProjectsPreview({ projects }: ProjectsPreviewProps) {
                     </p>
                   )}
                 </div>
-              </div>
+              </a>
             </ScrollReveal>
           ))}
         </div>

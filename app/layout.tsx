@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Soniya Gupta-Rawal | Quantitative Marketing Researcher",
   description:
     "Research portfolio of Soniya Gupta-Rawal — Quantitative Marketing researcher specializing in emerging markets, micro-entrepreneurs, field experiments, and AI-driven marketing strategy.",
+  icons: {
+    icon: "/favicon.ico",
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "Soniya Gupta-Rawal | Quantitative Marketing Researcher",
     description:

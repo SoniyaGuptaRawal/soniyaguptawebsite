@@ -5,6 +5,8 @@ import project from "./project";
 import talk from "./talk";
 import teamMember from "./teamMember";
 import collaborator from "./collaborator";
+import raApplication from "./raApplication";
+import teaching from "./teaching";
 
 export const schemaTypes = [
   profile,
@@ -14,4 +16,6 @@ export const schemaTypes = [
   talk,
   teamMember,
   collaborator,
+  raApplication,
+  teaching,
 ];

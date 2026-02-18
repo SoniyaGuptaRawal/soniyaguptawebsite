@@ -12,10 +12,25 @@ export default defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: "slug",
+      title: "Slug",
+      type: "slug",
+      options: { source: "title", maxLength: 96 },
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: "description",
-      title: "Description",
+      title: "Short Description",
       type: "text",
       rows: 4,
+      description: "Brief summary shown on project cards",
+    }),
+    defineField({
+      name: "body",
+      title: "Full Description",
+      type: "array",
+      of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+      description: "Detailed project description for the project page",
     }),
     defineField({
       name: "image",
