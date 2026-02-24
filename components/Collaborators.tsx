@@ -49,15 +49,15 @@ export default function Collaborators({ collaborators }: CollaboratorsProps) {
                 rel="noopener noreferrer"
                 className="group flex items-center gap-4 p-5 bg-white rounded-xl border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-md"
               >
-                <div className="w-14 h-14 rounded-full bg-gradient-to-br from-indigo-deep/5 to-amber/5 flex items-center justify-center shrink-0 overflow-hidden">
+                <div className="w-20 h-20 rounded-full bg-gradient-to-br from-indigo-deep/5 to-amber/5 flex items-center justify-center shrink-0 overflow-hidden">
                   {collab.logo ? (
                     <img
-                      src={urlFor(collab.logo).width(56).height(56).url()}
+                      src={urlFor(collab.logo).width(80).height(80).url()}
                       alt={collab.name}
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <span className="font-serif text-lg font-bold text-indigo-deep/30">
+                    <span className="font-serif text-2xl font-bold text-indigo-deep/30">
                       {collab.name.charAt(0)}
                     </span>
                   )}

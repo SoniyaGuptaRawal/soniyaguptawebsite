@@ -658,6 +658,60 @@
         "type": "string"
       },
       {
+        "description": "Organisations or institutions providing data for this project",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "name",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Optional link (e.g. partner website or LinkedIn)",
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "dataPartners",
+        "type": "array"
+      },
+      {
         "name": "startDate",
         "type": "date"
       },
@@ -1249,6 +1303,33 @@
         "type": "text"
       },
       {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Link to the course outline / syllabus document",
+        "name": "courseOutlineUrl",
+        "type": "url",
+        "title": "Course Outline URL"
+      },
+      {
         "name": "order",
         "type": "number",
         "title": "Display Order"
@@ -1256,5 +1337,111 @@
     ],
     "name": "teaching",
     "type": "document"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "description": "Short description shown in the card",
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "thumbnail",
+        "type": "image"
+      },
+      {
+        "options": {
+          "dateFormat": "MMMM D, YYYY"
+        },
+        "name": "date",
+        "type": "date"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Press",
+              "value": "press"
+            },
+            {
+              "title": "Award",
+              "value": "award"
+            },
+            {
+              "title": "Conference",
+              "value": "conference"
+            },
+            {
+              "title": "Research Update",
+              "value": "research"
+            },
+            {
+              "title": "Media",
+              "value": "media"
+            },
+            {
+              "title": "Other",
+              "value": "other"
+            }
+          ]
+        },
+        "name": "tag",
+        "type": "string"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional link to the full article or source",
+        "name": "url",
+        "type": "url",
+        "title": "Link URL"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "newsItem",
+    "type": "document",
+    "title": "News & Insights"
   }
 ]

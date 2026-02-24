@@ -47,7 +47,7 @@ export default function Hero({ name, title, institution, tagline }: HeroProps) {
         </motion.h1>
 
         <motion.p
-          className="text-white/70 text-lg md:text-xl mb-1 font-medium"
+          className="text-amber-light text-lg md:text-xl mb-1 font-medium"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
