@@ -57,6 +57,22 @@ export default defineType({
       description: "Key collaborators on this project",
     }),
     defineField({
+      name: "dataPartners",
+      title: "Data Partners",
+      type: "array",
+      description: "Organisations or institutions providing data for this project",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "name", title: "Name", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "url", title: "URL", type: "url", description: "Optional link (e.g. partner website or LinkedIn)" }),
+          ],
+          preview: { select: { title: "name", subtitle: "url" } },
+        },
+      ],
+    }),
+    defineField({
       name: "startDate",
       title: "Start Date",
       type: "date",

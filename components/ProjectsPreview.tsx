@@ -4,6 +4,11 @@ import { urlFor } from "@/sanity/client";
 import ScrollReveal from "./ScrollReveal";
 import SectionHeading from "./SectionHeading";
 
+interface DataPartner {
+  name: string;
+  url?: string;
+}
+
 interface Project {
   _id: string;
   title: string;
@@ -12,6 +17,7 @@ interface Project {
   image: any;
   status: string;
   collaborators: string;
+  dataPartners?: DataPartner[];
   startDate: string;
   endDate: string;
 }
@@ -100,48 +106,78 @@ export default function ProjectsPreview({ projects }: ProjectsPreviewProps) {
         <div className="grid md:grid-cols-3 gap-6 mb-12">
           {previewProjects.map((project, i) => (
             <ScrollReveal key={project._id} delay={i * 0.1}>
-              <a href={project.slug?.current ? `/research/${project.slug.current}` : "#"} className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 h-full flex flex-col block">
-                <div className="aspect-[16/9] bg-gradient-to-br from-indigo-deep/5 to-amber/5 relative overflow-hidden">
-                  {project.image ? (
-                    <img
-                      src={urlFor(project.image).width(400).height(225).url()}
-                      alt={project.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                  ) : (
-                    <div className="w-full h-full dot-grid flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-amber/10 flex items-center justify-center">
-                        <svg className="w-6 h-6 text-amber/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
-                        </svg>
+              <div className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 h-full flex flex-col">
+                {/* Clickable card area */}
+                <a href={project.slug?.current ? `/research/${project.slug.current}` : "#"} className="flex-1 flex flex-col">
+                  <div className="aspect-[16/9] bg-gradient-to-br from-indigo-deep/5 to-amber/5 relative overflow-hidden">
+                    {project.image ? (
+                      <img
+                        src={urlFor(project.image).width(400).height(225).url()}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full dot-grid flex items-center justify-center">
+                        <div className="w-12 h-12 rounded-full bg-amber/10 flex items-center justify-center">
+                          <svg className="w-6 h-6 text-amber/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                          </svg>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-                <div className="p-6 flex-1 flex flex-col">
-                  <div className="flex items-center gap-2 mb-3">
-                    <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[project.status] || statusColors.active}`}>
-                      {project.status || "Active"}
-                    </span>
-                    {project.startDate && (
-                      <span className="text-xs text-slate-warm">
-                        {project.startDate}{project.endDate ? ` — ${project.endDate}` : " — Present"}
-                      </span>
                     )}
                   </div>
-                  <h3 className="font-serif text-lg font-bold text-indigo-deep mb-2 group-hover:text-amber transition-colors">
-                    {project.title}
-                  </h3>
-                  <p className="text-slate-warm text-sm leading-relaxed flex-1 line-clamp-3">
-                    {project.description}
-                  </p>
-                  {project.collaborators && (
-                    <p className="text-xs text-slate-light mt-4 pt-4 border-t border-indigo-deep/5">
-                      Collaborators: {project.collaborators}
+                  <div className="p-6 flex-1 flex flex-col">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium ${statusColors[project.status] || statusColors.active}`}>
+                        {project.status || "Active"}
+                      </span>
+                      {project.startDate && (
+                        <span className="text-xs text-slate-warm">
+                          {project.startDate}{project.endDate ? ` — ${project.endDate}` : " — Present"}
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="font-serif text-lg font-bold text-indigo-deep mb-2 group-hover:text-amber transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-slate-warm text-sm leading-relaxed flex-1 line-clamp-3">
+                      {project.description}
                     </p>
-                  )}
-                </div>
-              </a>
+                    {project.collaborators && (
+                      <p className="text-xs text-slate-light mt-4 pt-4 border-t border-indigo-deep/5">
+                        Collaborators: {project.collaborators}
+                      </p>
+                    )}
+                  </div>
+                </a>
+
+                {/* Data Partners — outside the <a> to allow nested links */}
+                {project.dataPartners && project.dataPartners.length > 0 && (
+                  <div className="px-6 pb-5 pt-3 border-t border-indigo-deep/5">
+                    <p className="text-xs text-slate-light mb-1.5">Data Partners</p>
+                    <div className="flex flex-wrap gap-2">
+                      {project.dataPartners.map((partner, j) =>
+                        partner.url ? (
+                          <a
+                            key={j}
+                            href={partner.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs font-medium text-indigo-deep/70 hover:text-amber transition-colors underline underline-offset-2"
+                          >
+                            {partner.name}
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </a>
+                        ) : (
+                          <span key={j} className="text-xs text-indigo-deep/70">{partner.name}</span>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </ScrollReveal>
           ))}
         </div>

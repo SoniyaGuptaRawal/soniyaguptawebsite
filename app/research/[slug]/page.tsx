@@ -89,6 +89,29 @@ export default async function ProjectPage({
                 Collaborators: {project.collaborators}
               </p>
             )}
+            {project.dataPartners?.length > 0 && (
+              <div className="flex flex-wrap items-center gap-2 mt-2">
+                <span className="text-white/40 text-base">Data Partners:</span>
+                {project.dataPartners.map((partner: { name: string; url?: string }, i: number) =>
+                  partner.url ? (
+                    <a
+                      key={i}
+                      href={partner.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1 text-amber-light hover:text-amber transition-colors text-base underline underline-offset-2"
+                    >
+                      {partner.name}
+                      <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  ) : (
+                    <span key={i} className="text-white/40 text-base">{partner.name}</span>
+                  )
+                )}
+              </div>
+            )}
           </ScrollReveal>
         </div>
       </section>

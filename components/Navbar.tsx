@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
@@ -8,7 +9,7 @@ const navLinks = [
   { href: "#research", label: "Research" },
   { href: "#publications", label: "Publications" },
   { href: "/research", label: "Projects & Team" },
-  { href: "#talks", label: "Presentations" },
+  { href: "#talks", label: "Conferences" },
   { href: "/teaching", label: "Teaching" },
   { href: "#apply", label: "Apply" },
   { href: "#contact", label: "Contact" },
@@ -17,6 +18,13 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+
+  function resolveHref(href: string) {
+    if (href.startsWith("#")) return isHome ? href : `/${href}`;
+    return href;
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -34,8 +42,10 @@ export default function Navbar() {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a
-          href="#"
-          className="font-serif text-xl font-bold text-indigo-deep hover:text-amber transition-colors"
+          href={isHome ? "#" : "/"}
+          className={`font-serif text-xl font-bold transition-colors ${
+            scrolled ? "text-indigo-deep hover:text-amber" : "text-white hover:text-amber-light"
+          }`}
         >
           SGR
         </a>
@@ -45,8 +55,12 @@ export default function Navbar() {
           {navLinks.map((link) => (
             <a
               key={link.href}
-              href={link.href}
-              className="link-underline text-sm font-medium text-indigo-deep/70 hover:text-indigo-deep transition-colors"
+              href={resolveHref(link.href)}
+              className={`link-underline text-sm font-medium transition-colors ${
+                scrolled
+                  ? "text-indigo-deep/70 hover:text-indigo-deep"
+                  : "text-white/70 hover:text-white"
+              }`}
             >
               {link.label}
             </a>
@@ -60,17 +74,17 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <span
-            className={`w-6 h-0.5 bg-indigo-deep transition-transform ${
+            className={`w-6 h-0.5 transition-transform ${scrolled ? "bg-indigo-deep" : "bg-white"} ${
               mobileOpen ? "rotate-45 translate-y-2" : ""
             }`}
           />
           <span
-            className={`w-6 h-0.5 bg-indigo-deep transition-opacity ${
+            className={`w-6 h-0.5 ${scrolled ? "bg-indigo-deep" : "bg-white"} transition-opacity ${
               mobileOpen ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`w-6 h-0.5 bg-indigo-deep transition-transform ${
+            className={`w-6 h-0.5 transition-transform ${scrolled ? "bg-indigo-deep" : "bg-white"} ${
               mobileOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
           />
@@ -90,7 +104,7 @@ export default function Navbar() {
               {navLinks.map((link) => (
                 <a
                   key={link.href}
-                  href={link.href}
+                  href={resolveHref(link.href)}
                   className="text-base font-medium text-indigo-deep/80 hover:text-amber transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >

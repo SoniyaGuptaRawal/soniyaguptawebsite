@@ -38,7 +38,7 @@ export default function Hero({ name, title, institution, tagline }: HeroProps) {
         </motion.div>
 
         <motion.h1
-          className="font-serif text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 tracking-tight leading-[1.1]"
+          className="font-serif text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tight leading-[1.05]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
@@ -47,13 +47,24 @@ export default function Hero({ name, title, institution, tagline }: HeroProps) {
         </motion.h1>
 
         <motion.p
-          className="text-white/60 text-lg md:text-xl mb-4 font-medium"
+          className="text-white/70 text-lg md:text-xl mb-1 font-medium"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.3 }}
         >
-          {title || "Researcher"}{institution ? ` — ${institution}` : ""}
+          {title || "Researcher"}
         </motion.p>
+
+        {institution && (
+          <motion.p
+            className="text-amber-light text-base md:text-lg mb-4 font-medium"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.38 }}
+          >
+            {institution}
+          </motion.p>
+        )}
 
         <motion.p
           className="text-white/40 text-base md:text-lg max-w-2xl mx-auto mb-10 leading-relaxed"

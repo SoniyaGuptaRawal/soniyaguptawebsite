@@ -8,6 +8,7 @@ import {
   teamQuery,
   collaboratorsQuery,
   raApplicationQuery,
+  newsQuery,
 } from "@/lib/queries";
 
 import Navbar from "@/components/Navbar";
@@ -16,6 +17,7 @@ import About from "@/components/About";
 import ResearchAreas from "@/components/ResearchAreas";
 import Publications from "@/components/Publications";
 import ProjectsPreview from "@/components/ProjectsPreview";
+import NewsInsights from "@/components/NewsInsights";
 import Talks from "@/components/Talks";
 import Collaborators from "@/components/Collaborators";
 import RAApplication from "@/components/RAApplication";
@@ -31,6 +33,7 @@ async function getData() {
       researchAreas: [],
       publications: [],
       projects: [],
+      news: [],
       talks: [],
       team: [],
       collaborators: [],
@@ -38,23 +41,24 @@ async function getData() {
     };
   }
 
-  const [profile, researchAreas, publications, projects, talks, team, collaborators, raApplication] =
+  const [profile, researchAreas, publications, projects, news, talks, team, collaborators, raApplication] =
     await Promise.all([
       client.fetch(profileQuery).catch(() => null),
       client.fetch(researchAreasQuery).catch(() => []),
       client.fetch(publicationsQuery).catch(() => []),
       client.fetch(projectsQuery).catch(() => []),
+      client.fetch(newsQuery).catch(() => []),
       client.fetch(talksQuery).catch(() => []),
       client.fetch(teamQuery).catch(() => []),
       client.fetch(collaboratorsQuery).catch(() => []),
       client.fetch(raApplicationQuery).catch(() => null),
     ]);
 
-  return { profile, researchAreas, publications, projects, talks, team, collaborators, raApplication };
+  return { profile, researchAreas, publications, projects, news, talks, team, collaborators, raApplication };
 }
 
 export default async function Home() {
-  const { profile, researchAreas, publications, projects, talks, team, collaborators, raApplication } =
+  const { profile, researchAreas, publications, projects, news, talks, team, collaborators, raApplication } =
     await getData();
 
   return (
@@ -82,6 +86,7 @@ export default async function Home() {
       <ResearchAreas areas={researchAreas} />
       <Publications publications={publications} />
       <ProjectsPreview projects={projects} />
+      <NewsInsights items={news} />
       <Talks talks={talks} />
       <Collaborators collaborators={collaborators} />
       <RAApplication data={raApplication} />

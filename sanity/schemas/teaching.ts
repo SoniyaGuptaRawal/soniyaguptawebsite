@@ -54,6 +54,12 @@ export default defineType({
       rows: 3,
     }),
     defineField({
+      name: "courseOutlineUrl",
+      title: "Course Outline URL",
+      type: "url",
+      description: "Link to the course outline / syllabus document",
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

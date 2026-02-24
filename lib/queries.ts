@@ -44,6 +44,7 @@ export const projectsQuery = groq`*[_type == "project"] | order(startDate desc){
   image,
   status,
   collaborators,
+  dataPartners,
   startDate,
   endDate,
   url
@@ -58,6 +59,7 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   image,
   status,
   collaborators,
+  dataPartners,
   startDate,
   endDate,
   url
@@ -112,6 +114,17 @@ export const raApplicationQuery = groq`*[_type == "raApplication" && isActive ==
   isActive
 }`;
 
+export const newsQuery = groq`*[_type == "newsItem"] | order(order asc, date desc){
+  _id,
+  title,
+  summary,
+  thumbnail,
+  date,
+  tag,
+  url,
+  order
+}`;
+
 export const teachingQuery = groq`*[_type == "teaching"] | order(order asc){
   _id,
   title,
@@ -121,5 +134,6 @@ export const teachingQuery = groq`*[_type == "teaching"] | order(order asc){
   institution,
   period,
   description,
+  courseOutlineUrl,
   order
 }`;
