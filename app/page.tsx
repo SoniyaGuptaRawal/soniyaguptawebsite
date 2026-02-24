@@ -1,4 +1,5 @@
 import { client, hasConfig } from "@/sanity/client";
+import { fetchOgImage } from "@/lib/fetchOgImage";
 import {
   profileQuery,
   researchAreasQuery,
@@ -61,6 +62,16 @@ export default async function Home() {
   const { profile, researchAreas, publications, projects, news, talks, team, collaborators, raApplication } =
     await getData();
 
+  // Resolve OG images for news items that have a URL but no uploaded thumbnail
+  const newsWithImages = news?.length
+    ? await Promise.all(
+        news.map(async (item: any) => ({
+          ...item,
+          ogImage: item.thumbnail ? null : item.url ? await fetchOgImage(item.url) : null,
+        }))
+      )
+    : [];
+
   return (
     <main>
       <Navbar />
@@ -86,7 +97,7 @@ export default async function Home() {
       <ResearchAreas areas={researchAreas} />
       <Publications publications={publications} />
       <ProjectsPreview projects={projects} />
-      <NewsInsights items={news} />
+      <NewsInsights items={newsWithImages} />
       <Talks talks={talks} />
       <Collaborators collaborators={collaborators} />
       <RAApplication data={raApplication} />

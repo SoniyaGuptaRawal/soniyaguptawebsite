@@ -87,6 +87,24 @@ export default defineType({
       title: "Project URL",
       type: "url",
     }),
+    defineField({
+      name: "articles",
+      title: "Articles",
+      type: "array",
+      description: "Related articles, press coverage, or publications for this project",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "excerpt", title: "Excerpt", type: "text", rows: 2, description: "Optional short description" }),
+            defineField({ name: "url", title: "URL", type: "url", validation: (Rule) => Rule.required() }),
+            defineField({ name: "thumbnail", title: "Thumbnail", type: "image", options: { hotspot: true }, description: "Leave blank to auto-fetch from the URL" }),
+          ],
+          preview: { select: { title: "title", subtitle: "url", media: "thumbnail" } },
+        },
+      ],
+    }),
   ],
   preview: {
     select: { title: "title", subtitle: "status" },

@@ -9,6 +9,7 @@ interface NewsItem {
   title: string;
   summary?: string;
   thumbnail?: any;
+  ogImage?: string | null;
   date?: string;
   tag?: string;
   url?: string;
@@ -61,6 +62,12 @@ export default function NewsInsights({ items }: NewsInsightsProps) {
                   {item.thumbnail ? (
                     <img
                       src={urlFor(item.thumbnail).width(600).height(338).url()}
+                      alt={item.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  ) : item.ogImage ? (
+                    <img
+                      src={item.ogImage}
                       alt={item.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     />

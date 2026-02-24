@@ -5,9 +5,6 @@ export default function Footer() {
         <p className="text-white/30 text-sm">
           &copy; {new Date().getFullYear()} Soniya Gupta-Rawal. All rights reserved.
         </p>
-        <p className="text-white/20 text-xs">
-          Built with care
-        </p>
       </div>
     </footer>
   );

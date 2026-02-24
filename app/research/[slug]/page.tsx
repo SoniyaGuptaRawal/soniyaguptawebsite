@@ -1,5 +1,6 @@
 import { client, hasConfig, urlFor } from "@/sanity/client";
 import { projectBySlugQuery, projectsQuery } from "@/lib/queries";
+import { fetchOgImage } from "@/lib/fetchOgImage";
 import { PortableText } from "next-sanity";
 import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
@@ -45,6 +46,17 @@ export default async function ProjectPage({
     .catch(() => null);
 
   if (!project) return notFound();
+
+  // Resolve OG images for articles that have no uploaded thumbnail
+  type Article = { title: string; excerpt?: string; url: string; thumbnail?: any };
+  const articlesWithImages: (Article & { ogImage: string | null })[] = project.articles?.length
+    ? await Promise.all(
+        project.articles.map(async (article: Article) => ({
+          ...article,
+          ogImage: article.thumbnail ? null : await fetchOgImage(article.url),
+        }))
+      )
+    : [];
 
   return (
     <main>
@@ -146,6 +158,68 @@ export default async function ProjectPage({
             <ScrollReveal>
               <div className="prose prose-lg max-w-none text-indigo-deep/80 leading-relaxed prose-headings:font-serif prose-headings:text-indigo-deep prose-a:text-amber hover:prose-a:text-amber-light">
                 <PortableText value={project.body} />
+              </div>
+            </ScrollReveal>
+          )}
+
+          {/* Articles */}
+          {articlesWithImages.length > 0 && (
+            <ScrollReveal>
+              <div className="mt-16 pt-12 border-t border-indigo-deep/10">
+                <h2 className="font-serif text-2xl md:text-3xl font-bold text-indigo-deep mb-8">
+                  Articles
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {articlesWithImages.map((article, i) => {
+                    const thumb = article.thumbnail
+                      ? urlFor(article.thumbnail).width(600).height(340).url()
+                      : article.ogImage;
+                    return (
+                      <a
+                        key={i}
+                        href={article.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group bg-cream rounded-xl overflow-hidden border border-indigo-deep/5 hover:border-amber/30 transition-all duration-300 hover:shadow-md flex flex-col"
+                      >
+                        {/* Thumbnail */}
+                        <div className="aspect-[16/9] bg-gradient-to-br from-indigo-deep/5 to-amber/5 overflow-hidden relative">
+                          {thumb ? (
+                            <img
+                              src={thumb}
+                              alt={article.title}
+                              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            />
+                          ) : (
+                            <div className="w-full h-full dot-grid flex items-center justify-center">
+                              <svg className="w-8 h-8 text-indigo-deep/20" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+                              </svg>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Text */}
+                        <div className="p-5 flex-1 flex flex-col">
+                          <h3 className="font-serif font-bold text-indigo-deep group-hover:text-amber transition-colors leading-snug mb-2">
+                            {article.title}
+                          </h3>
+                          {article.excerpt && (
+                            <p className="text-sm text-slate-warm leading-relaxed flex-1 line-clamp-3">
+                              {article.excerpt}
+                            </p>
+                          )}
+                          <span className="mt-3 inline-flex items-center gap-1 text-xs font-medium text-amber">
+                            Read article
+                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                          </span>
+                        </div>
+                      </a>
+                    );
+                  })}
+                </div>
               </div>
             </ScrollReveal>
           )}

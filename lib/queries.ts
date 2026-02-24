@@ -62,7 +62,13 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   dataPartners,
   startDate,
   endDate,
-  url
+  url,
+  articles[] {
+    title,
+    excerpt,
+    url,
+    thumbnail
+  }
 }`;
 
 export const talksQuery = groq`*[_type == "talk"] | order(date desc){

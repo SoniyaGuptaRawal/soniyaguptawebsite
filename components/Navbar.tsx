@@ -9,6 +9,7 @@ const navLinks = [
   { href: "#research", label: "Research" },
   { href: "#publications", label: "Publications" },
   { href: "/research", label: "Projects & Team" },
+  { href: "#news", label: "News & Insights" },
   { href: "#talks", label: "Conferences" },
   { href: "/teaching", label: "Teaching" },
   { href: "#apply", label: "Apply" },
