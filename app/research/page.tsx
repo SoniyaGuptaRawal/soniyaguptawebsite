@@ -44,7 +44,7 @@ export default async function ResearchPage() {
               Research
             </span>
             <h1 className="font-serif text-4xl md:text-6xl font-bold text-white mb-4 tracking-tight">
-              Projects & Team
+              Research Projects & Team
             </h1>
             <p className="text-white/50 text-lg max-w-2xl">
               A comprehensive view of ongoing and completed research initiatives, and the

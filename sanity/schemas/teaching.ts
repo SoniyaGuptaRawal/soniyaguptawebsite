@@ -60,6 +60,13 @@ export default defineType({
       description: "Link to the course outline / syllabus document",
     }),
     defineField({
+      name: "photo",
+      title: "Photo",
+      type: "image",
+      options: { hotspot: true },
+      description: "Optional photo displayed on the right side of the card",
+    }),
+    defineField({
       name: "order",
       title: "Display Order",
       type: "number",

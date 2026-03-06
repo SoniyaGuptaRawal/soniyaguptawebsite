@@ -88,6 +88,24 @@ export default defineType({
       type: "url",
     }),
     defineField({
+      name: "awardsAndGrants",
+      title: "Awards & Grants",
+      type: "array",
+      description: "Awards, grants, or recognition received for this project",
+      of: [
+        {
+          type: "object",
+          fields: [
+            defineField({ name: "title", title: "Title", type: "string", validation: (Rule) => Rule.required() }),
+            defineField({ name: "organization", title: "Awarding Organization", type: "string" }),
+            defineField({ name: "year", title: "Year", type: "string" }),
+            defineField({ name: "url", title: "URL", type: "url", description: "Optional link to more details" }),
+          ],
+          preview: { select: { title: "title", subtitle: "organization" } },
+        },
+      ],
+    }),
+    defineField({
       name: "articles",
       title: "Articles",
       type: "array",

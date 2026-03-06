@@ -6,11 +6,12 @@ import { motion, AnimatePresence } from "framer-motion";
 
 const navLinks = [
   { href: "#about", label: "About" },
-  { href: "#research", label: "Research" },
   { href: "#publications", label: "Publications" },
-  { href: "/research", label: "Projects & Team" },
+  { href: "/research", label: "Research Projects & Team" },
+  { href: "#consulting", label: "Consulting Projects" },
   { href: "#news", label: "News & Insights" },
   { href: "#talks", label: "Conferences" },
+  { href: "#awards", label: "Awards" },
   { href: "/teaching", label: "Teaching" },
   { href: "#apply", label: "Apply" },
   { href: "#contact", label: "Contact" },
@@ -38,17 +39,14 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "nav-blur bg-cream/90 shadow-sm py-3"
-          : "bg-transparent py-5"
+          : "bg-cream/80 py-5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         <a
           href={isHome ? "#" : "/"}
-          className={`font-serif text-xl font-bold transition-colors ${
-            scrolled ? "text-indigo-deep hover:text-amber" : "text-white hover:text-amber-light"
-          }`}
+          className="font-serif text-xl font-bold transition-colors text-indigo-deep hover:text-amber"
         >
-          SGR
         </a>
 
         {/* Desktop nav */}
@@ -57,11 +55,7 @@ export default function Navbar() {
             <a
               key={link.href}
               href={resolveHref(link.href)}
-              className={`link-underline text-sm font-medium transition-colors ${
-                scrolled
-                  ? "text-indigo-deep/70 hover:text-indigo-deep"
-                  : "text-white/70 hover:text-white"
-              }`}
+              className={`link-underline text-sm font-medium transition-colors text-indigo-deep/70 hover:text-indigo-deep`}
             >
               {link.label}
             </a>
@@ -75,17 +69,17 @@ export default function Navbar() {
           aria-label="Toggle menu"
         >
           <span
-            className={`w-6 h-0.5 transition-transform ${scrolled ? "bg-indigo-deep" : "bg-white"} ${
+            className={`w-6 h-0.5 transition-transform bg-indigo-deep ${
               mobileOpen ? "rotate-45 translate-y-2" : ""
             }`}
           />
           <span
-            className={`w-6 h-0.5 ${scrolled ? "bg-indigo-deep" : "bg-white"} transition-opacity ${
+            className={`w-6 h-0.5 bg-indigo-deep transition-opacity ${
               mobileOpen ? "opacity-0" : ""
             }`}
           />
           <span
-            className={`w-6 h-0.5 transition-transform ${scrolled ? "bg-indigo-deep" : "bg-white"} ${
+            className={`w-6 h-0.5 transition-transform bg-indigo-deep ${
               mobileOpen ? "-rotate-45 -translate-y-2" : ""
             }`}
           />

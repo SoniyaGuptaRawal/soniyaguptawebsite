@@ -1,9 +1,14 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { PortableText } from "next-sanity";
 import { urlFor } from "@/sanity/client";
 import ScrollReveal from "./ScrollReveal";
-import SectionHeading from "./SectionHeading";
 
 interface AboutProps {
+  name: string;
+  title: string;
+  institution: string;
   bio: any[];
   photo: any;
   cvFile: any;
@@ -15,6 +20,9 @@ interface AboutProps {
 }
 
 export default function About({
+  name,
+  title,
+  institution,
   bio,
   photo,
   cvFile,
@@ -74,9 +82,37 @@ export default function About({
   ].filter((l) => l.href);
 
   return (
-    <section id="about" className="py-24 md:py-32 relative">
+    <section id="about" className="pt-24 pb-24 md:pt-28 md:pb-32 relative">
       <div className="max-w-7xl mx-auto px-6">
-        <SectionHeading title="About" />
+        {/* Name heading + title + institution */}
+        <div className="mb-16 md:mb-20">
+          <motion.h1
+            className="font-serif text-5xl md:text-7xl lg:text-8xl font-black text-indigo-deep mb-4 tracking-tight leading-[1.05] whitespace-nowrap"
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}
+          >
+            {name}
+          </motion.h1>
+
+          <motion.p
+            className="text-indigo-deep/70 text-lg md:text-xl mb-1 font-medium"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.15 }}
+          >
+            {title}
+          </motion.p>
+
+          <motion.p
+            className="text-indigo-deep/50 text-base md:text-lg font-medium"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.25 }}
+          >
+            {institution}
+          </motion.p>
+        </div>
 
         <div className="grid md:grid-cols-5 gap-12 md:gap-16 items-start">
           {/* Photo */}

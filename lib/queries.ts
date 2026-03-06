@@ -15,14 +15,6 @@ export const profileQuery = groq`*[_type == "profile"][0]{
   orcid
 }`;
 
-export const researchAreasQuery = groq`*[_type == "researchArea"] | order(order asc){
-  _id,
-  title,
-  description,
-  icon,
-  order
-}`;
-
 export const publicationsQuery = groq`*[_type == "publication"] | order(year desc, title asc){
   _id,
   title,
@@ -63,6 +55,12 @@ export const projectBySlugQuery = groq`*[_type == "project" && slug.current == $
   startDate,
   endDate,
   url,
+  awardsAndGrants[] {
+    title,
+    organization,
+    year,
+    url
+  },
   articles[] {
     title,
     excerpt,
@@ -131,6 +129,31 @@ export const newsQuery = groq`*[_type == "newsItem"] | order(order asc, date des
   order
 }`;
 
+export const consultingProjectsQuery = groq`*[_type == "consultingProject"] | order(order asc, startDate desc){
+  _id,
+  title,
+  description,
+  image,
+  status,
+  client,
+  collaborators,
+  startDate,
+  endDate,
+  url,
+  order
+}`;
+
+export const awardsQuery = groq`*[_type == "award"] | order(order asc, date desc){
+  _id,
+  title,
+  summary,
+  thumbnail,
+  date,
+  organization,
+  url,
+  order
+}`;
+
 export const teachingQuery = groq`*[_type == "teaching"] | order(order asc){
   _id,
   title,
@@ -141,5 +164,6 @@ export const teachingQuery = groq`*[_type == "teaching"] | order(order asc){
   period,
   description,
   courseOutlineUrl,
+  photo,
   order
 }`;

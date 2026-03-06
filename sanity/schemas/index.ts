@@ -1,5 +1,4 @@
 import profile from "./profile";
-import researchArea from "./researchArea";
 import publication from "./publication";
 import project from "./project";
 import talk from "./talk";
@@ -8,10 +7,11 @@ import collaborator from "./collaborator";
 import raApplication from "./raApplication";
 import teaching from "./teaching";
 import newsItem from "./newsItem";
+import award from "./award";
+import consultingProject from "./consultingProject";
 
 export const schemaTypes = [
   profile,
-  researchArea,
   publication,
   project,
   talk,
@@ -20,4 +20,6 @@ export const schemaTypes = [
   raApplication,
   teaching,
   newsItem,
+  award,
+  consultingProject,
 ];
