@@ -4,20 +4,23 @@ import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
-const navLinks = [
+const defaultNavLinks = [
   { href: "#about", label: "About" },
   { href: "#publications", label: "Publications" },
   { href: "/research", label: "Research Projects & Team" },
-  { href: "#consulting", label: "Consulting Projects" },
   { href: "#news", label: "News & Insights" },
   { href: "#talks", label: "Conferences" },
   { href: "#awards", label: "Awards" },
   { href: "/teaching", label: "Teaching" },
   { href: "#apply", label: "Apply" },
-  { href: "#contact", label: "Contact" },
 ];
 
-export default function Navbar() {
+interface NavbarProps {
+  navLinks?: { href: string; label: string }[];
+}
+
+export default function Navbar({ navLinks }: NavbarProps) {
+  const links = navLinks?.length ? navLinks : defaultNavLinks;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname();
@@ -51,7 +54,7 @@ export default function Navbar() {
 
         {/* Desktop nav */}
         <div className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
+          {links.map((link) => (
             <a
               key={link.href}
               href={resolveHref(link.href)}
@@ -96,7 +99,7 @@ export default function Navbar() {
             className="md:hidden nav-blur bg-cream/95 overflow-hidden"
           >
             <div className="px-6 py-4 flex flex-col gap-4">
-              {navLinks.map((link) => (
+              {links.map((link) => (
                 <a
                   key={link.href}
                   href={resolveHref(link.href)}

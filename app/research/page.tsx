@@ -1,7 +1,8 @@
 import { client, hasConfig } from "@/sanity/client";
-import { projectsQuery, teamQuery } from "@/lib/queries";
+import { projectsQuery, consultingProjectsQuery, teamQuery } from "@/lib/queries";
 import Navbar from "@/components/Navbar";
 import Projects from "@/components/Projects";
+import ConsultingProjects from "@/components/ConsultingProjects";
 import Team from "@/components/Team";
 import Footer from "@/components/Footer";
 import ScrollReveal from "@/components/ScrollReveal";
@@ -16,19 +17,20 @@ export const metadata = {
 
 async function getData() {
   if (!hasConfig) {
-    return { projects: [], team: [] };
+    return { projects: [], consultingProjects: [], team: [] };
   }
 
-  const [projects, team] = await Promise.all([
+  const [projects, consultingProjects, team] = await Promise.all([
     client.fetch(projectsQuery).catch(() => []),
+    client.fetch(consultingProjectsQuery).catch(() => []),
     client.fetch(teamQuery).catch(() => []),
   ]);
 
-  return { projects, team };
+  return { projects, consultingProjects, team };
 }
 
 export default async function ResearchPage() {
-  const { projects, team } = await getData();
+  const { projects, consultingProjects, team } = await getData();
 
   return (
     <main>
@@ -56,6 +58,9 @@ export default async function ResearchPage() {
 
       {/* Projects section */}
       <Projects projects={projects} />
+
+      {/* Consulting Projects section */}
+      <ConsultingProjects projects={consultingProjects} />
 
       {/* Team section */}
       <Team members={team} />

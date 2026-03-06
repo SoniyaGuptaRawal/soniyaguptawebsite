@@ -10,7 +10,7 @@ import {
   raApplicationQuery,
   newsQuery,
   awardsQuery,
-  consultingProjectsQuery,
+  siteSectionsQuery,
 } from "@/lib/queries";
 
 import Navbar from "@/components/Navbar";
@@ -18,7 +18,6 @@ import Navbar from "@/components/Navbar";
 import About from "@/components/About";
 import Publications from "@/components/Publications";
 import ProjectsPreview from "@/components/ProjectsPreview";
-import ConsultingProjects from "@/components/ConsultingProjects";
 import NewsInsights from "@/components/NewsInsights";
 import Talks from "@/components/Talks";
 import Awards from "@/components/Awards";
@@ -29,41 +28,58 @@ import Footer from "@/components/Footer";
 
 export const revalidate = 0;
 
+const defaultOrder = ["about", "publications", "projects", "news", "talks", "awards", "collaborators", "apply"];
+
+const navConfig: Record<string, { label: string; href: string }> = {
+  about: { label: "About", href: "#about" },
+  publications: { label: "Publications", href: "#publications" },
+  projects: { label: "Research Projects & Team", href: "/research" },
+  news: { label: "News & Insights", href: "#news" },
+  talks: { label: "Conferences", href: "#talks" },
+  awards: { label: "Awards", href: "#awards" },
+  teaching: { label: "Teaching", href: "/teaching" },
+  apply: { label: "Apply", href: "#apply" },
+};
+
 async function getData() {
   if (!hasConfig) {
     return {
       profile: null,
       publications: [],
       projects: [],
-      consultingProjects: [],
       news: [],
       talks: [],
       team: [],
       awards: [],
       collaborators: [],
       raApplication: null,
+      sectionOrder: defaultOrder,
     };
   }
 
-  const [profile, publications, projects, consultingProjects, news, talks, team, awards, collaborators, raApplication] =
+  const [profile, publications, projects, news, talks, team, awards, collaborators, raApplication, rawSections] =
     await Promise.all([
       client.fetch(profileQuery).catch(() => null),
       client.fetch(publicationsQuery).catch(() => []),
       client.fetch(projectsQuery).catch(() => []),
-      client.fetch(consultingProjectsQuery).catch(() => []),
       client.fetch(newsQuery).catch(() => []),
       client.fetch(talksQuery).catch(() => []),
       client.fetch(teamQuery).catch(() => []),
       client.fetch(awardsQuery).catch(() => []),
       client.fetch(collaboratorsQuery).catch(() => []),
       client.fetch(raApplicationQuery).catch(() => null),
+      client.fetch(siteSectionsQuery).catch(() => []),
     ]);
 
-  return { profile, publications, projects, consultingProjects, news, talks, team, awards, collaborators, raApplication };
+  const sectionOrder: string[] = rawSections?.length > 0
+    ? rawSections.map((s: { key: string }) => s.key)
+    : defaultOrder;
+
+  return { profile, publications, projects, news, talks, team, awards, collaborators, raApplication, sectionOrder };
 }
 
 export default async function Home() {
-  const { profile, publications, projects, consultingProjects, news, talks, team, awards, collaborators, raApplication } =
+  const { profile, publications, projects, news, talks, team, awards, collaborators, raApplication, sectionOrder } =
     await getData();
 
   // Resolve OG images for news items that have a URL but no uploaded thumbnail
@@ -76,10 +92,16 @@ export default async function Home() {
       )
     : [];
 
-  return (
-    <main>
-      <Navbar />
+  // Build nav links in section order
+  const navLinks = sectionOrder
+    .filter((key) => navConfig[key])
+    .map((key) => navConfig[key]);
+
+  // Section components keyed by section key
+  const sectionComponents: Record<string, React.ReactNode> = {
+    about: (
       <About
+        key="about"
         name={profile?.name || "Soniya Gupta-Rawal"}
         title={profile?.title || "PhD Candidate, Management Studies (Marketing)"}
         institution={profile?.institution || "Cambridge Judge Business School, University of Cambridge"}
@@ -92,14 +114,26 @@ export default async function Home() {
         twitter={profile?.twitter || ""}
         orcid={profile?.orcid || ""}
       />
-      <Publications publications={publications} />
-      <ProjectsPreview projects={projects} />
-      <ConsultingProjects projects={consultingProjects} />
-      <NewsInsights items={newsWithImages} />
-      <Talks talks={talks} />
-      <Awards awards={awards} />
-      <Collaborators collaborators={collaborators} />
-      <RAApplication data={raApplication} />
+    ),
+    publications: <Publications key="publications" publications={publications} />,
+    projects: <ProjectsPreview key="projects" projects={projects} />,
+    news: <NewsInsights key="news" items={newsWithImages} />,
+    talks: <Talks key="talks" talks={talks} />,
+    awards: <Awards key="awards" awards={awards} />,
+    collaborators: <Collaborators key="collaborators" collaborators={collaborators} />,
+    apply: <RAApplication key="apply" data={raApplication} />,
+  };
+
+  // Ensure any missing keys still render
+  const orderedKeys = [...sectionOrder];
+  for (const key of defaultOrder) {
+    if (!orderedKeys.includes(key)) orderedKeys.push(key);
+  }
+
+  return (
+    <main>
+      <Navbar navLinks={navLinks} />
+      {orderedKeys.map((key) => sectionComponents[key] || null)}
       <Contact
         email={profile?.email || "sg2001@jbs.cam.ac.uk"}
         institution={profile?.institution || "Cambridge Judge Business School, University of Cambridge"}

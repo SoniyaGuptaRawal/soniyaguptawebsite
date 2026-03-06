@@ -1,5 +1,10 @@
 import { groq } from "next-sanity";
 
+export const siteSectionsQuery = groq`*[_type == "siteSection"] | order(order asc){
+  key,
+  order
+}`;
+
 export const profileQuery = groq`*[_type == "profile"][0]{
   name,
   title,
