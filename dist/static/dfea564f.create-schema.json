@@ -298,43 +298,6 @@
         "type": "string"
       },
       {
-        "rows": 3,
-        "name": "description",
-        "type": "text"
-      },
-      {
-        "description": "An emoji to represent this area (e.g., 📊, 🌍, 🤖)",
-        "name": "icon",
-        "type": "string",
-        "title": "Icon Emoji"
-      },
-      {
-        "name": "order",
-        "type": "number",
-        "title": "Display Order"
-      }
-    ],
-    "name": "researchArea",
-    "type": "document"
-  },
-  {
-    "fields": [
-      {
-        "validation": [
-          {
-            "rules": [
-              {
-                "flag": "presence",
-                "constraint": "required"
-              }
-            ],
-            "level": "error"
-          }
-        ],
-        "name": "title",
-        "type": "string"
-      },
-      {
         "description": "Comma-separated list of authors",
         "name": "authors",
         "type": "string"
@@ -744,6 +707,141 @@
         "name": "url",
         "type": "url",
         "title": "Project URL"
+      },
+      {
+        "description": "Awards, grants, or recognition received for this project",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "name": "organization",
+                "type": "string",
+                "title": "Awarding Organization"
+              },
+              {
+                "name": "year",
+                "type": "string"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "description": "Optional link to more details",
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "awardsAndGrants",
+        "type": "array",
+        "title": "Awards & Grants"
+      },
+      {
+        "description": "Related articles, press coverage, or publications for this project",
+        "of": [
+          {
+            "fields": [
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "title",
+                "type": "string"
+              },
+              {
+                "rows": 2,
+                "description": "Optional short description",
+                "name": "excerpt",
+                "type": "text"
+              },
+              {
+                "validation": [
+                  {
+                    "rules": [
+                      {
+                        "flag": "uri",
+                        "constraint": {
+                          "options": {
+                            "scheme": [
+                              "/^http$/",
+                              "/^https$/"
+                            ],
+                            "allowRelative": false,
+                            "relativeOnly": false,
+                            "allowCredentials": false
+                          }
+                        }
+                      },
+                      {
+                        "flag": "presence",
+                        "constraint": "required"
+                      }
+                    ],
+                    "level": "error"
+                  }
+                ],
+                "name": "url",
+                "type": "url",
+                "title": "URL"
+              },
+              {
+                "options": {
+                  "hotspot": true
+                },
+                "description": "Leave blank to auto-fetch from the URL",
+                "name": "thumbnail",
+                "type": "image"
+              }
+            ],
+            "type": "object"
+          }
+        ],
+        "name": "articles",
+        "type": "array"
       }
     ],
     "name": "project",
@@ -1330,6 +1428,14 @@
         "title": "Course Outline URL"
       },
       {
+        "options": {
+          "hotspot": true
+        },
+        "description": "Optional photo displayed on the right side of the card",
+        "name": "photo",
+        "type": "image"
+      },
+      {
         "name": "order",
         "type": "number",
         "title": "Display Order"
@@ -1443,5 +1549,287 @@
     "name": "newsItem",
     "type": "document",
     "title": "News & Insights"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 3,
+        "description": "Short description shown in the card",
+        "name": "summary",
+        "type": "text"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "thumbnail",
+        "type": "image"
+      },
+      {
+        "options": {
+          "dateFormat": "MMMM D, YYYY"
+        },
+        "name": "date",
+        "type": "date"
+      },
+      {
+        "description": "The organization or institution that granted the award",
+        "name": "organization",
+        "type": "string",
+        "title": "Awarding Organization"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional link to more details about the award",
+        "name": "url",
+        "type": "url",
+        "title": "Link URL"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "award",
+    "type": "document",
+    "title": "Awards & Recognition"
+  },
+  {
+    "fields": [
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "title",
+        "type": "string"
+      },
+      {
+        "rows": 4,
+        "description": "Brief summary shown on the project card",
+        "name": "description",
+        "type": "text",
+        "title": "Short Description"
+      },
+      {
+        "options": {
+          "hotspot": true
+        },
+        "name": "image",
+        "type": "image",
+        "title": "Project Image"
+      },
+      {
+        "options": {
+          "list": [
+            {
+              "title": "Active",
+              "value": "active"
+            },
+            {
+              "title": "Completed",
+              "value": "completed"
+            },
+            {
+              "title": "Upcoming",
+              "value": "upcoming"
+            }
+          ]
+        },
+        "name": "status",
+        "type": "string"
+      },
+      {
+        "description": "The client or organization for this consulting project",
+        "name": "client",
+        "type": "string",
+        "title": "Client / Organization"
+      },
+      {
+        "description": "Key collaborators on this project",
+        "name": "collaborators",
+        "type": "string"
+      },
+      {
+        "name": "startDate",
+        "type": "date"
+      },
+      {
+        "name": "endDate",
+        "type": "date"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "uri",
+                "constraint": {
+                  "options": {
+                    "scheme": [
+                      "/^http$/",
+                      "/^https$/"
+                    ],
+                    "allowRelative": false,
+                    "relativeOnly": false,
+                    "allowCredentials": false
+                  }
+                }
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Optional link to more details",
+        "name": "url",
+        "type": "url",
+        "title": "Project URL"
+      },
+      {
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "consultingProject",
+    "type": "document"
+  },
+  {
+    "description": "Drag to reorder sections on the homepage and navbar. Create one entry per section.",
+    "fields": [
+      {
+        "options": {
+          "list": [
+            {
+              "title": "About",
+              "value": "about"
+            },
+            {
+              "title": "Publications",
+              "value": "publications"
+            },
+            {
+              "title": "Research Projects & Team",
+              "value": "projects"
+            },
+            {
+              "title": "News & Insights",
+              "value": "news"
+            },
+            {
+              "title": "Conferences",
+              "value": "talks"
+            },
+            {
+              "title": "Awards & Recognition",
+              "value": "awards"
+            },
+            {
+              "title": "Collaborators",
+              "value": "collaborators"
+            },
+            {
+              "title": "Teaching",
+              "value": "teaching"
+            },
+            {
+              "title": "Apply",
+              "value": "apply"
+            }
+          ]
+        },
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "valid",
+                "constraint": [
+                  "about",
+                  "publications",
+                  "projects",
+                  "news",
+                  "talks",
+                  "awards",
+                  "collaborators",
+                  "teaching",
+                  "apply"
+                ]
+              },
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "name": "key",
+        "type": "string",
+        "title": "Section"
+      },
+      {
+        "validation": [
+          {
+            "rules": [
+              {
+                "flag": "presence",
+                "constraint": "required"
+              }
+            ],
+            "level": "error"
+          }
+        ],
+        "description": "Lower numbers appear first",
+        "name": "order",
+        "type": "number",
+        "title": "Display Order"
+      }
+    ],
+    "name": "siteSection",
+    "type": "document",
+    "title": "Site Sections (Display Order)"
   }
 ]

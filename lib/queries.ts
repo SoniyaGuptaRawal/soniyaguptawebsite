@@ -12,7 +12,7 @@ export const profileQuery = groq`*[_type == "profile"][0]{
   tagline,
   bio,
   photo,
-  cvFile,
+  "cvFile": cvFile.asset->url,
   email,
   googleScholar,
   twitter,

@@ -183,7 +183,7 @@ export default function About({
                 </a>
               ))}
               <a
-                href={cvFile?.asset?.url || "/cv.pdf"}
+                href={cvFile || "/cv.pdf"}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-deep text-white text-sm hover:bg-indigo-mid transition-colors"
