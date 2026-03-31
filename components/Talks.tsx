@@ -167,7 +167,7 @@ export default function Talks({ talks }: TalksProps) {
               <ScrollReveal key={talk._id} delay={i * 0.1}>
                 <div className="relative pl-12 md:pl-20">
                   {/* Timeline dot */}
-                  <div className="absolute left-2.5 md:left-6.5 top-2 w-3 h-3 rounded-full bg-amber border-2 border-cream" />
+                  <div className="absolute left-2.5 md:left-[1.625rem] top-2 w-3 h-3 rounded-full bg-amber border-2 border-cream" />
 
                   <div className="bg-white rounded-xl p-6 border border-indigo-deep/5 hover:border-amber/20 transition-colors">
                     <div className="flex flex-wrap items-center gap-3 mb-2">

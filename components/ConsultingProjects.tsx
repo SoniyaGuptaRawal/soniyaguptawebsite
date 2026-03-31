@@ -38,7 +38,7 @@ export default function ConsultingProjects({ projects }: ConsultingProjectsProps
           subtitle="Applied research and strategic consulting engagements."
         />
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
           {projects.map((project, i) => (
             <ScrollReveal key={project._id} delay={i * 0.1}>
               <div className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 h-full flex flex-col">

@@ -23,6 +23,7 @@ body {
   background: var(--color-cream);
   color: var(--color-indigo-deep);
   font-family: var(--font-sans);
+  overflow-x: hidden;
 }
 
 /* Dot grid pattern background */

@@ -67,7 +67,7 @@ export default function Navbar({ navLinks }: NavbarProps) {
 
         {/* Mobile hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
+          className="md:hidden flex flex-col gap-1.5 p-3"
           onClick={() => setMobileOpen(!mobileOpen)}
           aria-label="Toggle menu"
         >
@@ -98,12 +98,12 @@ export default function Navbar({ navLinks }: NavbarProps) {
             exit={{ opacity: 0, height: 0 }}
             className="md:hidden nav-blur bg-cream/95 overflow-hidden"
           >
-            <div className="px-6 py-4 flex flex-col gap-4">
+            <div className="px-6 py-4 flex flex-col gap-1">
               {links.map((link) => (
                 <a
                   key={link.href}
                   href={resolveHref(link.href)}
-                  className="text-base font-medium text-indigo-deep/80 hover:text-amber transition-colors"
+                  className="py-3 text-base font-medium text-indigo-deep/80 hover:text-amber transition-colors"
                   onClick={() => setMobileOpen(false)}
                 >
                   {link.label}

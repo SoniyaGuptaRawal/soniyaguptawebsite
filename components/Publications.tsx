@@ -169,8 +169,8 @@ export default function Publications({ publications }: PublicationsProps) {
           {filtered.map((pub, i) => (
             <ScrollReveal key={pub._id} delay={i * 0.05}>
               <div className="pub-card bg-white rounded-xl p-6 md:p-8 border border-indigo-deep/5">
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex-1">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-3 mb-2">
                       <span className="px-2.5 py-0.5 rounded-full text-xs font-medium bg-amber/10 text-amber">
                         {typeLabels[pub.type] || pub.type}
@@ -207,7 +207,7 @@ export default function Publications({ publications }: PublicationsProps) {
                   </div>
 
                   {/* Links */}
-                  <div className="flex flex-col gap-2 shrink-0">
+                  <div className="flex flex-row sm:flex-col gap-2 shrink-0">
                     {pub.doi && (
                       <a
                         href={`https://doi.org/${pub.doi}`}

@@ -87,7 +87,7 @@ export default function About({
         {/* Name heading + title + institution */}
         <div className="mb-16 md:mb-20">
           <motion.h1
-            className="font-serif text-5xl md:text-7xl lg:text-8xl font-black text-indigo-deep mb-4 tracking-tight leading-[1.05] whitespace-nowrap"
+            className="font-serif text-3xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-indigo-deep mb-4 tracking-tight leading-[1.05]"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.25, 0.4, 0.25, 1] }}

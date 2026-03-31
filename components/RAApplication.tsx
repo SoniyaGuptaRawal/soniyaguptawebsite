@@ -48,7 +48,7 @@ export default function RAApplication({ data }: RAApplicationProps) {
         <div className="grid lg:grid-cols-5 gap-10">
           {/* Introduction */}
           <ScrollReveal className="lg:col-span-3">
-            <div className="bg-white rounded-2xl p-8 border border-indigo-deep/5 h-full">
+            <div className="bg-white rounded-2xl p-6 md:p-8 border border-indigo-deep/5 h-full">
               <div className="prose prose-lg max-w-none text-indigo-deep/80 leading-relaxed mb-8">
                 {d.introduction ? (
                   <PortableText value={d.introduction} />
@@ -85,7 +85,7 @@ export default function RAApplication({ data }: RAApplicationProps) {
 
           {/* Position Details Card */}
           <ScrollReveal className="lg:col-span-2" delay={0.15}>
-            <div className="bg-indigo-deep rounded-2xl p-8 text-white sticky top-28">
+            <div className="bg-indigo-deep rounded-2xl p-6 md:p-8 text-white lg:sticky lg:top-28">
               <h3 className="font-serif text-2xl font-bold mb-6">Position Details</h3>
 
               <div className="space-y-4">

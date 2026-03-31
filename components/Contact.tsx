@@ -30,7 +30,7 @@ export default function Contact({
       <div className="relative max-w-4xl mx-auto px-6 text-center">
         <ScrollReveal>
           <div className="section-divider mx-auto mb-6" />
-          <h2 className="font-serif text-3xl md:text-5xl font-bold text-white mb-4">
+          <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4">
             Get in Touch
           </h2>
           <p className="text-white/50 text-lg mb-10 max-w-xl mx-auto">
@@ -43,7 +43,7 @@ export default function Contact({
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`mailto:${displayEmail}`}
-              className="inline-flex items-center gap-3 px-8 py-4 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-base sm:text-lg"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
@@ -54,7 +54,7 @@ export default function Contact({
               href="https://topmate.io/soniya_guptarawal"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-lg"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 py-3 sm:px-8 sm:py-4 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-base sm:text-lg"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />

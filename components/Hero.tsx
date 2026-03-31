@@ -38,7 +38,7 @@ export default function Hero({ name, title, institution, tagline }: HeroProps) {
         </motion.div>
 
         <motion.h1
-          className="font-serif text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tight leading-[1.05]"
+          className="font-serif text-4xl sm:text-6xl md:text-8xl lg:text-9xl font-black text-white mb-6 tracking-tight leading-[1.05]"
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.15, ease: [0.25, 0.4, 0.25, 1] }}
@@ -80,17 +80,17 @@ export default function Hero({ name, title, institution, tagline }: HeroProps) {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.6 }}
-          className="flex items-center justify-center gap-4"
+          className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto"
         >
           <a
             href="#publications"
-            className="px-6 py-3 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-sm"
+            className="w-full sm:w-auto text-center px-6 py-3 bg-amber text-white font-medium rounded-full hover:bg-amber-light transition-colors text-sm"
           >
             View Research
           </a>
           <a
             href="#contact"
-            className="px-6 py-3 border border-white/20 text-white/80 font-medium rounded-full hover:bg-white/10 transition-colors text-sm"
+            className="w-full sm:w-auto text-center px-6 py-3 border border-white/20 text-white/80 font-medium rounded-full hover:bg-white/10 transition-colors text-sm"
           >
             Get in Touch
           </a>

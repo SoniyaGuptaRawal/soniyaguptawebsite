@@ -53,7 +53,7 @@ export default function NewsInsights({ items }: NewsInsightsProps) {
           subtitle="Latest updates, press coverage, and research highlights."
         />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {items.map((item, i) => (
             <ScrollReveal key={item._id} delay={i * 0.08}>
               <div className="group bg-white rounded-2xl overflow-hidden border border-indigo-deep/5 hover:border-amber/20 transition-all duration-300 hover:shadow-lg hover:shadow-amber/5 flex flex-col h-full">

@@ -15,7 +15,7 @@ export default function SectionHeading({ title, subtitle }: SectionHeadingProps)
         </h2>
       </div>
       {subtitle && (
-        <p className="text-slate-warm text-lg md:text-xl max-w-2xl ml-[76px]">
+        <p className="text-slate-warm text-lg md:text-xl max-w-2xl ml-0 md:ml-[76px]">
           {subtitle}
         </p>
       )}
